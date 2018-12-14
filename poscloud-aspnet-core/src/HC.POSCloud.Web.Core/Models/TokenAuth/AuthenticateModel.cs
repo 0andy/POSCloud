@@ -14,5 +14,7 @@ namespace HC.POSCloud.Models.TokenAuth
         public string Password { get; set; }
         
         public bool RememberClient { get; set; }
+
+        public string ShopId { get; set; }
     }
 }

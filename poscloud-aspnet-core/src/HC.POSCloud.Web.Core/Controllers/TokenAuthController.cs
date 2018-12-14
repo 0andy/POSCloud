@@ -17,6 +17,7 @@ using HC.POSCloud.Authorization;
 using HC.POSCloud.Authorization.Users;
 using HC.POSCloud.Models.TokenAuth;
 using HC.POSCloud.MultiTenancy;
+using Abp.Auditing;
 
 namespace HC.POSCloud.Controllers
 {
