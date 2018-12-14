@@ -82,10 +82,6 @@
 
                         <nz-form-explain *ngIf="validateForm.get('lable').dirty&&validateForm.get('lable').hasError('maxlength')">字符长度小于等于30</nz-form-explain>
                     </nz-form-control>
-                    <nz-form-control nz-col [nzSm]="20">
-
-                        <!-- <nz-tag *ngFor="let item of lableList" nzClosable (nzClose)="onClose($event, item)">{{item}}</nz-tag> -->
-                    </nz-form-control>
                 </nz-form-item>
                 <nz-form-item nz-row>
                     <nz-form-label nz-col [nzSm]="4" nzFor="desc">商品描述</nz-form-label>
