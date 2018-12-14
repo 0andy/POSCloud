@@ -44,6 +44,11 @@ const routes: Routes = [
         data: { preload: true },
       },
       {
+        path: 'member',
+        loadChildren: './member-center/member-center.module#MemberCenterModule', // Lazy load account module
+        data: { preload: true },
+      },
+      {
         path: '**',
         redirectTo: 'home',
       },

@@ -3,6 +3,7 @@ using System;
 using System.ComponentModel.DataAnnotations;
 using Abp.Domain.Entities.Auditing;
 using HC.POSCloud.Members;
+using HC.POSCloud.PosEnmus;
 
 namespace  HC.POSCloud.Members.Dtos
 {
@@ -48,14 +49,14 @@ namespace  HC.POSCloud.Members.Dtos
 		/// <summary>
 		/// UserType
 		/// </summary>
-		public int? UserType { get; set; }
+		public UserTypeEnum? UserType { get; set; }
 
 
 
 		/// <summary>
 		/// BindStatus
 		/// </summary>
-		public int? BindStatus { get; set; }
+		public BindStatus? BindStatus { get; set; }
 
 
 

@@ -6,6 +6,7 @@ import * as ApiServiceProxies from '@shared/service-proxies/service-proxies';
 import { ProductServiceProxy } from './product-center/product.service';
 import { PosCloudHttpClient } from './poscloud-httpclient';
 import { RetailerServiceProxy } from './basic-data';
+import { MemberServiceProxy } from './member-center';
 
 @NgModule({
   providers: [
@@ -19,6 +20,7 @@ import { RetailerServiceProxy } from './basic-data';
     PosCloudHttpClient,
     ProductServiceProxy,
     RetailerServiceProxy,
+    MemberServiceProxy,
     { provide: HTTP_INTERCEPTORS, useClass: AbpHttpInterceptor, multi: true },
   ],
 })

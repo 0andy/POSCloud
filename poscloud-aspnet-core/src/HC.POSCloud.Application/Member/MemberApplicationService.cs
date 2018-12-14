@@ -29,7 +29,7 @@ namespace HC.POSCloud.Members
     /// <summary>
     /// Member应用层服务的接口实现方法  
     ///</summary>
-    [AbpAuthorize]
+    //[AbpAuthorize]
     public class MemberAppService : POSCloudAppServiceBase, IMemberAppService
     {
         private readonly IRepository<Member, Guid> _entityRepository;
@@ -54,24 +54,16 @@ namespace HC.POSCloud.Members
         ///</summary>
         /// <param name="input"></param>
         /// <returns></returns>
-		[AbpAuthorize(MemberPermissions.Query)] 
-        public async Task<PagedResultDto<MemberListDto>> GetPaged(GetMembersInput input)
+        public async Task<PagedResultDto<MemberListDto>> GetPagedMemberListAsync(GetMembersInput input)
 		{
-
-		    var query = _entityRepository.GetAll();
-			// TODO:根据传入的参数添加过滤条件
-            
-
-			var count = await query.CountAsync();
-
+		    var query = _entityRepository.GetAll()
+               .WhereIf(!string.IsNullOrEmpty(input.Filter), r => r.NickName.Contains(input.Filter) || r.Phone.Contains(input.Filter));
+            var count = await query.CountAsync();
 			var entityList = await query
 					.OrderBy(input.Sorting).AsNoTracking()
 					.PageBy(input)
 					.ToListAsync();
-
-			// var entityListDtos = ObjectMapper.Map<List<MemberListDto>>(entityList);
 			var entityListDtos =entityList.MapTo<List<MemberListDto>>();
-
 			return new PagedResultDto<MemberListDto>(count,entityListDtos);
 		}
 
@@ -79,11 +71,9 @@ namespace HC.POSCloud.Members
 		/// <summary>
 		/// 通过指定id获取MemberListDto信息
 		/// </summary>
-		[AbpAuthorize(MemberPermissions.Query)] 
-		public async Task<MemberListDto> GetById(EntityDto<Guid> input)
+		public async Task<MemberListDto> GetMemberByIdAsync(Guid id)
 		{
-			var entity = await _entityRepository.GetAsync(input.Id);
-
+			var entity = await _entityRepository.GetAsync(id);
 		    return entity.MapTo<MemberListDto>();
 		}
 

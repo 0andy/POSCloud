@@ -66,6 +66,7 @@ export class RetailerComponent extends AppComponentBase implements OnInit {
     createRetailer() {
         this.router.navigate(['app/basic/retailer-detail'])
     }
+
     goDetail(id: string) {
         this.router.navigate(['app/basic/retailer-detail', id])
     }

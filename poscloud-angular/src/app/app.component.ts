@@ -83,25 +83,19 @@ export class AppComponent extends AppComponentBase
       '会员中心',
       '',
       'anticon anticon-user',
-      '/app/home',
+      '',
       [
         new MenuItem(
           '会员管理',
-          'Pages.Tenants',
           '',
-          '/app/tenants',
-        ),
-        new MenuItem(
-          '积分查询',
-          'Pages.Roles',
           '',
-          '/app/roles',
+          '/app/member/memberCenter',
         ),
         new MenuItem(
           '会员设置',
-          'Pages.Users',
           '',
-          '/app/users',
+          '',
+          '/app/member/memberConfig',
         ),
       ]
     ),
