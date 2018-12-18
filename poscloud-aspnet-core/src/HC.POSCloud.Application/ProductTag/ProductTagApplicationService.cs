@@ -174,7 +174,6 @@ namespace HC.POSCloud.ProductTags
         /// <summary>
         /// 获取商品类型
         /// </summary>
-        /// <returns></returns>
         public async Task<List<TagsNzTreeNode>> GetTagTreesAsync()
         {
             var Tags = await _entityRepository.GetAll().OrderBy(v => v.Seq).AsNoTracking()
@@ -205,8 +204,6 @@ namespace HC.POSCloud.ProductTags
         /// <summary>
         /// 创建商品分类
         /// </summary>
-        /// <param name="input"></param>
-        /// <returns></returns>
         public async Task<ProductTagEditDto> CreateProductTagAsync(ProductTagEditDto input)
         {
             var entity = input.MapTo<ProductTag>();
@@ -217,8 +214,6 @@ namespace HC.POSCloud.ProductTags
         /// <summary>
         /// 修改商品分类
         /// </summary>
-        /// <param name="input"></param>
-        /// <returns></returns>
         public async Task<ProductTagEditDto> EditProductTagAsync(ProductTagEditDto input)
         {
             var entity = await _entityRepository.GetAsync(input.Id.Value);
@@ -230,7 +225,6 @@ namespace HC.POSCloud.ProductTags
         /// <summary>
         /// 获取商品类型Select
         /// </summary>
-        /// <returns></returns>
         public async Task<List<SelectGroup>> GetProductTagsSelectGroup()
         {
             var entity = await (from pt in _entityRepository.GetAll()
@@ -241,6 +235,12 @@ namespace HC.POSCloud.ProductTags
                                     seq = pt.Seq
                                 }).OrderBy(v => v.seq).AsNoTracking().ToListAsync();
             return entity.MapTo<List<SelectGroup>>();
+        }
+
+        public async Task<List<SynProductTagDto>> GetSynProductTagAsync()
+        {
+            var tagList = await _entityRepository.GetAllListAsync();
+            return tagList.MapTo<List<SynProductTagDto>>();
         }
     }
 }

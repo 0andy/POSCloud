@@ -67,5 +67,7 @@ namespace HC.POSCloud.ProductTags
         Task<ProductTagEditDto> CreateProductTagAsync(ProductTagEditDto input);
         Task<ProductTagEditDto> EditProductTagAsync(ProductTagEditDto input);
         Task<List<SelectGroup>> GetProductTagsSelectGroup();
+
+        Task<List<SynProductTagDto>> GetSynProductTagAsync();
     }
 }
