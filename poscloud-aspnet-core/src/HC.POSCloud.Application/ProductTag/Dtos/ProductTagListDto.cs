@@ -6,6 +6,7 @@ using Abp.Domain.Entities.Auditing;
 using System.ComponentModel.DataAnnotations;
 using HC.POSCloud.ProductTags;
 using System.Collections.Generic;
+using Abp.AutoMapper;
 
 namespace HC.POSCloud.ProductTags.Dtos
 {
@@ -40,5 +41,25 @@ namespace HC.POSCloud.ProductTags.Dtos
     public class TagsNzTreeNode : NzTreeNode
     {
         public new List<NzTreeNode> children { get; set; }
+    }
+
+    [AutoMapFrom(typeof(ProductTag))]
+    public class SynProductTagDto
+    {
+        public int Id { get; set; }
+
+        public string Name { get; set; }
+
+        public int Seq { get; set; }
+
+        public DateTime CreationTime { get; set; }
+
+        public string CreationTimeStr
+        {
+            get
+            {
+                return CreationTime.ToString("yyyy-MM-dd HH:mm:ss");
+            }
+        }
     }
 }
