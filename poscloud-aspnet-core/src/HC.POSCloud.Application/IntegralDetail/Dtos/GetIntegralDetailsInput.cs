@@ -1,13 +1,14 @@
 
 using Abp.Runtime.Validation;
 using HC.POSCloud.Dtos;
-using HC.POSCloud.Members;
+using HC.POSCloud.IntegralDetails;
+using System;
 
-namespace HC.POSCloud.Members.Dtos
+namespace HC.POSCloud.IntegralDetails.Dtos
 {
-    public class GetMembersInput : PagedSortedAndFilteredInputDto, IShouldNormalize
+    public class GetIntegralDetailsInput : PagedSortedAndFilteredInputDto, IShouldNormalize
     {
-        public string Filter { get; set; }
+        public Guid MemberId { get; set; }
         /// <summary>
         /// 正常化排序使用
         /// </summary>

@@ -42,12 +42,12 @@ namespace HC.POSCloud.Members
         /// <summary>
         /// 用户类型(会员)
         /// </summary>
-        public virtual int? UserType { get; set; }
+        public virtual UserTypeEnum? UserType { get; set; }
 
         /// <summary>
         /// 绑定状态(枚举 已绑定、未绑定)
         /// </summary>
-        public virtual int? BindStatus { get; set; }
+        public virtual BindStatus? BindStatus { get; set; }
 
         /// <summary>
         /// 绑定时间

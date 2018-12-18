@@ -74,8 +74,8 @@
                     </div> -->
             </form>
             <ng-template #totalTemplate let-total>共 {{query.total}} 条</ng-template>
-            <nz-table #nzTable [nzData]="productList" [nzFrontPagination]="false" [nzTotal]="query.total" [nzShowTotal]="totalTemplate" [nzData]="employeeList" [(nzPageIndex)]="query.pageIndex" [(nzPageSize)]="query.pageSize" [nzLoading]="loading" [nzShowSizeChanger]="true"
-                (nzPageIndexChange)="refreshData(tempNode)" (nzPageSizeChange)="refreshData(tempNode)">
+            <nz-table #nzTable [nzData]="productList" [nzFrontPagination]="false" [nzTotal]="query.total" [nzShowTotal]="totalTemplate" [(nzPageIndex)]="query.pageIndex" [(nzPageSize)]="query.pageSize" [nzLoading]="loading" [nzShowSizeChanger]="true" (nzPageIndexChange)="refreshData(tempNode)"
+                (nzPageSizeChange)="refreshData(tempNode)">
                 <thead>
                     <tr>
                         <th>条码</th>
