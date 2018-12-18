@@ -55,7 +55,7 @@ namespace HC.POSCloud.Members
         /// </summary>
         /// <param name="input"></param>
         /// <returns></returns>
-        Task CreateOrUpdate(CreateOrUpdateMemberInput input);
+        Task<MemberEditDto> CreateOrUpdateMemberAsync(MemberEditDto input);
 
 
         /// <summary>
@@ -71,12 +71,6 @@ namespace HC.POSCloud.Members
         /// </summary>
         Task BatchDelete(List<Guid> input);
 
-
-		/// <summary>
-        /// 导出Member为excel表
-        /// </summary>
-        /// <returns></returns>
-		//Task<FileDto> GetToExcel();
-
+        Task<bool> GetIsExistByPhoneAsync(string phone);
     }
 }

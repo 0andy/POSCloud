@@ -22,6 +22,19 @@ namespace HC.POSCloud.Members
         public virtual string Phone { get; set; }
 
         /// <summary>
+        /// 姓名
+        /// </summary>
+        [Required]
+        [StringLength(50)]
+        public virtual string Name { get; set; }
+
+        /// <summary>
+        /// 性别
+        /// </summary>
+        [Required]
+        public virtual SexEnum Sex { get; set; }
+
+        /// <summary>
         /// 微信昵称
         /// </summary>
         [StringLength(50)]
