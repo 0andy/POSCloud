@@ -1,5 +1,3 @@
-
-
 using System;
 using System.Threading.Tasks;
 using Abp;
@@ -16,12 +14,5 @@ namespace HC.POSCloud.Members.DomainService
         /// 初始化方法
         ///</summary>
         void InitMember();
-
-
-
-		 
-      
-         
-
     }
 }

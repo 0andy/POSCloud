@@ -11,36 +11,38 @@ using Abp.AutoMapper;
 namespace HC.POSCloud.Members.Dtos
 {
     [AutoMapFrom(typeof(Member))]
-    public class MemberListDto : EntityDto<Guid>,IHasCreationTime 
+    public class MemberListDto : EntityDto<Guid>, IHasCreationTime
     {
+        public string Name { get; set; }
 
-        
-		/// <summary>
-		/// Phone
-		/// </summary>
-		[Required(ErrorMessage="Phone不能为空")]
-		public string Phone { get; set; }
+        public SexEnum? Sex { get; set; }
 
-
-
-		/// <summary>
-		/// NickName
-		/// </summary>
-		public string NickName { get; set; }
+        /// <summary>
+        /// Phone
+        /// </summary>
+        [Required(ErrorMessage = "Phone不能为空")]
+        public string Phone { get; set; }
 
 
 
-		/// <summary>
-		/// OpenId
-		/// </summary>
-		public string OpenId { get; set; }
+        /// <summary>
+        /// NickName
+        /// </summary>
+        public string NickName { get; set; }
 
 
 
-		/// <summary>
-		/// HeadImgUrl
-		/// </summary>
-		public string HeadImgUrl { get; set; }
+        /// <summary>
+        /// OpenId
+        /// </summary>
+        public string OpenId { get; set; }
+
+
+
+        /// <summary>
+        /// HeadImgUrl
+        /// </summary>
+        public string HeadImgUrl { get; set; }
 
         public string HeadImgUrlPic
         {
@@ -91,27 +93,23 @@ namespace HC.POSCloud.Members.Dtos
 
 
 
-		/// <summary>
-		/// UnBindTime
-		/// </summary>
-		public DateTime? UnBindTime { get; set; }
+        /// <summary>
+        /// UnBindTime
+        /// </summary>
+        public DateTime? UnBindTime { get; set; }
 
 
 
-		/// <summary>
-		/// Integral
-		/// </summary>
-		public int? Integral { get; set; }
+        /// <summary>
+        /// Integral
+        /// </summary>
+        public int? Integral { get; set; }
 
 
 
-		/// <summary>
-		/// CreationTime
-		/// </summary>
-		public DateTime CreationTime { get; set; }
-
-
-
-
+        /// <summary>
+        /// CreationTime
+        /// </summary>
+        public DateTime CreationTime { get; set; }
     }
 }

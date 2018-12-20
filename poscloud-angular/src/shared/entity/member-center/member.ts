@@ -1,5 +1,7 @@
 export class Member implements IMember {
     id: string;
+    name: string;
+    sex: number;
     nickName: string;
     phone: string;
     openId: string;
@@ -26,6 +28,8 @@ export class Member implements IMember {
     init(data?: any) {
         if (data) {
             this.id = data["id"];
+            this.name = data["name"];
+            this.sex = data["sex"];
             this.nickName = data["nickName"];
             this.phone = data["phone"];
             this.openId = data["openId"];
@@ -63,6 +67,8 @@ export class Member implements IMember {
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
         data["id"] = this.id;
+        data["name"] = this.name;
+        data["sex"] = this.sex;
         data["nickName"] = this.nickName;
         data["phone"] = this.phone;
         data["openId"] = this.openId;
@@ -86,6 +92,8 @@ export class Member implements IMember {
 }
 export interface IMember {
     id: string;
+    name: string;
+    sex: number;
     nickName: string;
     phone: string;
     openId: string;

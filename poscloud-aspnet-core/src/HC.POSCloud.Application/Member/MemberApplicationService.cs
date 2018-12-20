@@ -41,11 +41,11 @@ namespace HC.POSCloud.Members
         ///</summary>
         public MemberAppService(
         IRepository<Member, Guid> entityRepository
-        ,IMemberManager entityManager
+        , IMemberManager entityManager
         )
         {
-            _entityRepository = entityRepository; 
-             _entityManager=entityManager;
+            _entityRepository = entityRepository;
+            _entityManager = entityManager;
         }
 
 
@@ -55,147 +55,141 @@ namespace HC.POSCloud.Members
         /// <param name="input"></param>
         /// <returns></returns>
         public async Task<PagedResultDto<MemberListDto>> GetPagedMemberListAsync(GetMembersInput input)
-		{
-		    var query = _entityRepository.GetAll()
-               .WhereIf(!string.IsNullOrEmpty(input.Filter), r => r.NickName.Contains(input.Filter) || r.Phone.Contains(input.Filter));
+        {
+            var query = _entityRepository.GetAll()
+               .WhereIf(!string.IsNullOrEmpty(input.Filter), r => r.Name.Contains(input.Filter) || r.Phone.Contains(input.Filter));
             var count = await query.CountAsync();
-			var entityList = await query
-					.OrderBy(input.Sorting).AsNoTracking()
-					.PageBy(input)
-					.ToListAsync();
-			var entityListDtos =entityList.MapTo<List<MemberListDto>>();
-			return new PagedResultDto<MemberListDto>(count,entityListDtos);
-		}
+            var entityList = await query
+                     .OrderByDescending(v => v.CreationTime).AsNoTracking()
+                    .PageBy(input)
+                    .ToListAsync();
+            var entityListDtos = entityList.MapTo<List<MemberListDto>>();
+            return new PagedResultDto<MemberListDto>(count, entityListDtos);
+        }
 
 
-		/// <summary>
-		/// 通过指定id获取MemberListDto信息
-		/// </summary>
-		public async Task<MemberListDto> GetMemberByIdAsync(Guid id)
-		{
-			var entity = await _entityRepository.GetAsync(id);
-		    return entity.MapTo<MemberListDto>();
-		}
+        /// <summary>
+        /// 通过指定id获取MemberListDto信息
+        /// </summary>
+        public async Task<MemberListDto> GetMemberByIdAsync(Guid id)
+        {
+            var entity = await _entityRepository.GetAsync(id);
+            return entity.MapTo<MemberListDto>();
+        }
 
-		/// <summary>
-		/// 获取编辑 Member
-		/// </summary>
-		/// <param name="input"></param>
-		/// <returns></returns>
-		[AbpAuthorize(MemberPermissions.Create,MemberPermissions.Edit)]
-		public async Task<GetMemberForEditOutput> GetForEdit(NullableIdDto<Guid> input)
-		{
-			var output = new GetMemberForEditOutput();
-MemberEditDto editDto;
+        /// <summary>
+        /// 获取编辑 Member
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
+        [AbpAuthorize(MemberPermissions.Create, MemberPermissions.Edit)]
+        public async Task<GetMemberForEditOutput> GetForEdit(NullableIdDto<Guid> input)
+        {
+            var output = new GetMemberForEditOutput();
+            MemberEditDto editDto;
 
-			if (input.Id.HasValue)
-			{
-				var entity = await _entityRepository.GetAsync(input.Id.Value);
+            if (input.Id.HasValue)
+            {
+                var entity = await _entityRepository.GetAsync(input.Id.Value);
 
-				editDto = entity.MapTo<MemberEditDto>();
+                editDto = entity.MapTo<MemberEditDto>();
 
-				//memberEditDto = ObjectMapper.Map<List<memberEditDto>>(entity);
-			}
-			else
-			{
-				editDto = new MemberEditDto();
-			}
+                //memberEditDto = ObjectMapper.Map<List<memberEditDto>>(entity);
+            }
+            else
+            {
+                editDto = new MemberEditDto();
+            }
 
-			output.Member = editDto;
-			return output;
-		}
-
-
-		/// <summary>
-		/// 添加或者修改Member的公共方法
-		/// </summary>
-		/// <param name="input"></param>
-		/// <returns></returns>
-		[AbpAuthorize(MemberPermissions.Create,MemberPermissions.Edit)]
-		public async Task CreateOrUpdate(CreateOrUpdateMemberInput input)
-		{
-
-			if (input.Member.Id.HasValue)
-			{
-				await Update(input.Member);
-			}
-			else
-			{
-				await Create(input.Member);
-			}
-		}
+            output.Member = editDto;
+            return output;
+        }
 
 
-		/// <summary>
-		/// 新增Member
-		/// </summary>
-		[AbpAuthorize(MemberPermissions.Create)]
-		protected virtual async Task<MemberEditDto> Create(MemberEditDto input)
-		{
-			//TODO:新增前的逻辑判断，是否允许新增
+        /// <summary>
+        /// 添加或者修改Member的公共方法
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
+        public async Task<MemberEditDto> CreateOrUpdateMemberAsync(MemberEditDto input)
+        {
 
-            // var entity = ObjectMapper.Map <Member>(input);
-            var entity=input.MapTo<Member>();
-			
+            if (input.Id.HasValue)
+            {
+                return await Update(input);
+            }
+            else
+            {
+                return await Create(input);
+            }
+        }
 
-			entity = await _entityRepository.InsertAsync(entity);
-			return entity.MapTo<MemberEditDto>();
-		}
 
-		/// <summary>
-		/// 编辑Member
-		/// </summary>
-		[AbpAuthorize(MemberPermissions.Edit)]
-		protected virtual async Task Update(MemberEditDto input)
-		{
-			//TODO:更新前的逻辑判断，是否允许更新
+        /// <summary>
+        /// 新增Member
+        /// </summary>
+        protected virtual async Task<MemberEditDto> Create(MemberEditDto input)
+        {
+            var entity = input.MapTo<Member>();
+            entity.BindStatus = PosEnmus.BindStatus.已绑定;
+            entity.UserType = PosEnmus.UserTypeEnum.会员;
+            entity.Integral = 0;
+            var id = await _entityRepository.InsertAndGetIdAsync(entity);
+            return entity.MapTo<MemberEditDto>();
+        }
 
-			var entity = await _entityRepository.GetAsync(input.Id.Value);
-			input.MapTo(entity);
-
-			// ObjectMapper.Map(input, entity);
-		    await _entityRepository.UpdateAsync(entity);
-		}
+        /// <summary>
+        /// 编辑Member
+        /// </summary>
+        protected virtual async Task<MemberEditDto> Update(MemberEditDto input)
+        {
+            var entity = await _entityRepository.GetAsync(input.Id.Value);
+            input.MapTo(entity);
+            await _entityRepository.UpdateAsync(entity);
+            return entity.MapTo<MemberEditDto>();
+        }
 
 
 
-		/// <summary>
-		/// 删除Member信息的方法
-		/// </summary>
-		/// <param name="input"></param>
-		/// <returns></returns>
-		[AbpAuthorize(MemberPermissions.Delete)]
-		public async Task Delete(EntityDto<Guid> input)
-		{
-			//TODO:删除前的逻辑判断，是否允许删除
-			await _entityRepository.DeleteAsync(input.Id);
-		}
+        /// <summary>
+        /// 删除Member信息的方法
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
+        [AbpAuthorize(MemberPermissions.Delete)]
+        public async Task Delete(EntityDto<Guid> input)
+        {
+            //TODO:删除前的逻辑判断，是否允许删除
+            await _entityRepository.DeleteAsync(input.Id);
+        }
 
 
 
-		/// <summary>
-		/// 批量删除Member的方法
-		/// </summary>
-		[AbpAuthorize(MemberPermissions.BatchDelete)]
-		public async Task BatchDelete(List<Guid> input)
-		{
-			// TODO:批量删除前的逻辑判断，是否允许删除
-			await _entityRepository.DeleteAsync(s => input.Contains(s.Id));
-		}
+        /// <summary>
+        /// 批量删除Member的方法
+        /// </summary>
+        [AbpAuthorize(MemberPermissions.BatchDelete)]
+        public async Task BatchDelete(List<Guid> input)
+        {
+            // TODO:批量删除前的逻辑判断，是否允许删除
+            await _entityRepository.DeleteAsync(s => input.Contains(s.Id));
+        }
 
 
-		/// <summary>
-		/// 导出Member为excel表,等待开发。
-		/// </summary>
-		/// <returns></returns>
-		//public async Task<FileDto> GetToExcel()
-		//{
-		//	var users = await UserManager.Users.ToListAsync();
-		//	var userListDtos = ObjectMapper.Map<List<UserListDto>>(users);
-		//	await FillRoleNames(userListDtos);
-		//	return _userListExcelExporter.ExportToFile(userListDtos);
-		//}
-
+        /// <summary>
+        /// 检查是否存在会员
+        /// </summary>
+        /// <param name="phone"></param>
+        /// <returns></returns>
+        public async Task<bool> GetIsExistByPhoneAsync(string phone)
+        {
+            int count = await _entityRepository.GetAll().Where(v => v.Phone == phone).CountAsync();
+            if (count == 0)
+            {
+                return false;
+            }
+            return true;
+        }
     }
 }
 

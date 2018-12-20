@@ -36,4 +36,10 @@ namespace HC.POSCloud.PosEnmus
         评价商品 = 2,
         抽奖消费 = 3
     }
+
+    public enum SexEnum
+    {
+        男 = 1,
+        女 = 0
+    }
 }
