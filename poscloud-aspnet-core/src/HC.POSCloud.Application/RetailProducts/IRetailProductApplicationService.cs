@@ -18,28 +18,28 @@ using Abp.Application.Services;
 using Abp.Application.Services.Dto;
 
 
-using HC.POSCloud.Products.Dtos;
-using HC.POSCloud.Products;
+using HC.POSCloud.RetailProducts.Dtos;
+using HC.POSCloud.RetailProducts;
 
-namespace HC.POSCloud.Products
+namespace HC.POSCloud.RetailProducts
 {
     /// <summary>
-    /// Product应用层服务的接口方法
+    /// RetailProduct应用层服务的接口方法
     ///</summary>
-    public interface IProductAppService : IApplicationService
+    public interface IRetailProductAppService : IApplicationService
     {
         /// <summary>
-		/// 获取Product的分页列表信息
+		/// 获取RetailProduct的分页列表信息
 		///</summary>
         /// <param name="input"></param>
         /// <returns></returns>
-        Task<PagedResultDto<ProductListDto>> GetPagedProductListAsync(GetProductsInput input);
+        Task<PagedResultDto<RetailProductListDto>> GetPaged(GetRetailProductsInput input);
 
 
-        /// <summary>
-        /// 通过指定id获取ProductListDto信息
-        /// </summary>
-        Task<ProductListDto> GetProductByIdAsync(Guid id);
+		/// <summary>
+		/// 通过指定id获取RetailProductListDto信息
+		/// </summary>
+		Task<RetailProductListDto> GetById(EntityDto<Guid> input);
 
 
         /// <summary>
@@ -47,31 +47,36 @@ namespace HC.POSCloud.Products
         /// </summary>
         /// <param name="input"></param>
         /// <returns></returns>
-        Task<GetProductForEditOutput> GetForEdit(NullableIdDto<Guid> input);
+        Task<GetRetailProductForEditOutput> GetForEdit(NullableIdDto<Guid> input);
 
 
         /// <summary>
-        /// 添加或者修改Product的公共方法
+        /// 添加或者修改RetailProduct的公共方法
         /// </summary>
         /// <param name="input"></param>
         /// <returns></returns>
-        Task<ProductEditDto> CreateOrUpdateProductAsync(ProductEditDto input);
+        Task CreateOrUpdate(CreateOrUpdateRetailProductInput input);
 
 
         /// <summary>
-        /// 删除Product信息的方法
+        /// 删除RetailProduct信息的方法
         /// </summary>
         /// <param name="input"></param>
         /// <returns></returns>
-        Task DeleteProductByIdAsync(Guid id);
+        Task Delete(EntityDto<Guid> input);
 
 
         /// <summary>
-        /// 批量删除Product
+        /// 批量删除RetailProduct
         /// </summary>
         Task BatchDelete(List<Guid> input);
-        Task<ProductListDto> CreateOrUpdateProductLable(ProductEditDto input);
 
-        //Task<List<>>
+
+		/// <summary>
+        /// 导出RetailProduct为excel表
+        /// </summary>
+        /// <returns></returns>
+		//Task<FileDto> GetToExcel();
+
     }
 }

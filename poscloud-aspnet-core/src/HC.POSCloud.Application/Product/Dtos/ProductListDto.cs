@@ -90,4 +90,6 @@ namespace HC.POSCloud.Products.Dtos
         /// </summary>
         public CigaretteGradeEnum? Grade { get; set; }
     }
+
+
 }

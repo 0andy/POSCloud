@@ -8,6 +8,8 @@ using HC.POSCloud.ProductTags;
 using HC.POSCloud.Retailers;
 using HC.POSCloud.Members;
 using HC.POSCloud.IntegralDetails;
+using HC.POSCloud.Shops;
+using HC.POSCloud.RetailProducts;
 
 namespace HC.POSCloud.EntityFrameworkCore
 {
@@ -25,5 +27,7 @@ namespace HC.POSCloud.EntityFrameworkCore
         public virtual DbSet<Retailer> Retailers { get; set; }
         public virtual DbSet<Member> Members { get; set; }
         public virtual DbSet<IntegralDetail> IntegralDetails { get; set; }
+        public virtual DbSet<Shop> Shops { get; set; }
+        public virtual DbSet<RetailProduct> RetailProducts { get; set; }
     }
 }
