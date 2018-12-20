@@ -13,11 +13,9 @@ namespace HC.POSCloud.Members.Dtos
     [AutoMapFrom(typeof(Member))]
     public class MemberListDto : EntityDto<Guid>, IHasCreationTime
     {
-        [Required(ErrorMessage = "Name")]
         public string Name { get; set; }
 
-        [Required(ErrorMessage = "Sex")]
-        public SexEnum Sex { get; set; }
+        public SexEnum? Sex { get; set; }
 
         /// <summary>
         /// Phone

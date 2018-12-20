@@ -57,10 +57,10 @@ namespace HC.POSCloud.Members
         public async Task<PagedResultDto<MemberListDto>> GetPagedMemberListAsync(GetMembersInput input)
         {
             var query = _entityRepository.GetAll()
-               .WhereIf(!string.IsNullOrEmpty(input.Filter), r => r.NickName.Contains(input.Filter) || r.Phone.Contains(input.Filter));
+               .WhereIf(!string.IsNullOrEmpty(input.Filter), r => r.Name.Contains(input.Filter) || r.Phone.Contains(input.Filter));
             var count = await query.CountAsync();
             var entityList = await query
-                    .OrderByDescending(v => v.CreationTime).AsNoTracking()
+                     .OrderByDescending(v => v.CreationTime).AsNoTracking()
                     .PageBy(input)
                     .ToListAsync();
             var entityListDtos = entityList.MapTo<List<MemberListDto>>();
@@ -131,6 +131,9 @@ namespace HC.POSCloud.Members
         protected virtual async Task<MemberEditDto> Create(MemberEditDto input)
         {
             var entity = input.MapTo<Member>();
+            entity.BindStatus = PosEnmus.BindStatus.已绑定;
+            entity.UserType = PosEnmus.UserTypeEnum.会员;
+            entity.Integral = 0;
             var id = await _entityRepository.InsertAndGetIdAsync(entity);
             return entity.MapTo<MemberEditDto>();
         }

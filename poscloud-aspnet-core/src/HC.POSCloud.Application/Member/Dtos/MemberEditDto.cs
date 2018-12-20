@@ -16,16 +16,14 @@ namespace  HC.POSCloud.Members.Dtos
         public Guid? Id { get; set; }
 
 
-        [Required(ErrorMessage = "Name")]
         public string Name { get; set; }
 
-        [Required(ErrorMessage = "Sex")]
-        public SexEnum Sex { get; set; }
+        public SexEnum? Sex { get; set; }
         /// <summary>
         /// Phone
         /// </summary>
-        [Required(ErrorMessage="Phone不能为空")]
-		public string Phone { get; set; }
+        [Required(ErrorMessage = "Phone不能为空")]
+        public string Phone { get; set; }
 
 
 
