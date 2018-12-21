@@ -2,6 +2,7 @@
 using System;
 using System.ComponentModel.DataAnnotations;
 using Abp.Domain.Entities.Auditing;
+using HC.POSCloud.PosEnmus;
 using HC.POSCloud.RetailProducts;
 
 namespace  HC.POSCloud.RetailProducts.Dtos
@@ -120,7 +121,7 @@ namespace  HC.POSCloud.RetailProducts.Dtos
 		/// <summary>
 		/// IsEnable
 		/// </summary>
-		public bool? IsEnable { get; set; }
+		public EnableEnum IsEnable { get; set; }
 
 
 

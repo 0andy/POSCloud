@@ -71,6 +71,7 @@ namespace HC.POSCloud.RetailProducts
         /// </summary>
         Task BatchDelete(List<Guid> input);
 
+        Task<List<RetailProductSynDto>> GetRetailProductSynAsync(int skipCount, Guid shopId);
 
 		/// <summary>
         /// 导出RetailProduct为excel表

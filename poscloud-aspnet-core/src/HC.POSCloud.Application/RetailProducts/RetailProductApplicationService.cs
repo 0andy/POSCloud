@@ -193,18 +193,25 @@ namespace HC.POSCloud.RetailProducts
 			await _entityRepository.DeleteAsync(s => input.Contains(s.Id));
 		}
 
+        public async Task<List<RetailProductSynDto>> GetRetailProductSynAsync(int skipCount, Guid shopId)
+        {
+            var qurey = _entityRepository.GetAll().Where(s => s.ShopId == shopId).OrderBy(e => e.CreationTime);
+            var plist = await qurey.Skip(skipCount).Take(2000).ToListAsync();//每次最多获取2000条数据
+            return plist.MapTo<List<RetailProductSynDto>>();
+        }
 
-		/// <summary>
-		/// 导出RetailProduct为excel表,等待开发。
-		/// </summary>
-		/// <returns></returns>
-		//public async Task<FileDto> GetToExcel()
-		//{
-		//	var users = await UserManager.Users.ToListAsync();
-		//	var userListDtos = ObjectMapper.Map<List<UserListDto>>(users);
-		//	await FillRoleNames(userListDtos);
-		//	return _userListExcelExporter.ExportToFile(userListDtos);
-		//}
+
+        /// <summary>
+        /// 导出RetailProduct为excel表,等待开发。
+        /// </summary>
+        /// <returns></returns>
+        //public async Task<FileDto> GetToExcel()
+        //{
+        //	var users = await UserManager.Users.ToListAsync();
+        //	var userListDtos = ObjectMapper.Map<List<UserListDto>>(users);
+        //	await FillRoleNames(userListDtos);
+        //	return _userListExcelExporter.ExportToFile(userListDtos);
+        //}
 
     }
 }

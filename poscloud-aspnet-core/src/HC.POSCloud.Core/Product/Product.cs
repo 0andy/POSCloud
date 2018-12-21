@@ -1,14 +1,17 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Abp.AutoMapper;
 using Abp.Domain.Entities.Auditing;
 using HC.POSCloud.PosEnmus;
+using HC.POSCloud.RetailProducts;
 
 namespace HC.POSCloud.Products
 {
     /// <summary>
     /// 商品表
     /// </summary>
+    [AutoMapTo(typeof(RetailProduct))]
     [Table("Products")]
     public class Product : FullAuditedEntity<Guid>
     {

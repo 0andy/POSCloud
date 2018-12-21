@@ -1,4 +1,5 @@
 ﻿using Abp.Domain.Entities;
+using HC.POSCloud.PosEnmus;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -77,7 +78,7 @@ namespace HC.POSCloud.RetailProducts
         /// <summary>
         /// 是否启用
         /// </summary>
-        public virtual bool? IsEnable { get; set; }
+        public virtual EnableEnum IsEnable { get; set; }
         /// <summary>
         /// 商品描述
         /// </summary>

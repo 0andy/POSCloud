@@ -24,6 +24,7 @@ using HC.POSCloud.Products.DomainService;
 using HC.POSCloud.Products.Authorization;
 using HC.POSCloud.Authorization;
 using HC.POSCloud.ProductTags;
+using HC.POSCloud.RetailProducts.Dtos;
 
 namespace HC.POSCloud.Products
 {
@@ -226,6 +227,8 @@ namespace HC.POSCloud.Products
             var result = await _entityRepository.UpdateAsync(entity);
             return result.MapTo<ProductListDto>();
         }
+
+     
     }
 }
 

@@ -20,6 +20,7 @@ using Abp.Application.Services.Dto;
 
 using HC.POSCloud.Products.Dtos;
 using HC.POSCloud.Products;
+using HC.POSCloud.RetailProducts.Dtos;
 
 namespace HC.POSCloud.Products
 {
@@ -71,7 +72,5 @@ namespace HC.POSCloud.Products
         /// </summary>
         Task BatchDelete(List<Guid> input);
         Task<ProductListDto> CreateOrUpdateProductLable(ProductEditDto input);
-
-        //Task<List<>>
     }
 }

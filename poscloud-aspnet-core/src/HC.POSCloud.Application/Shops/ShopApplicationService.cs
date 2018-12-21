@@ -21,6 +21,7 @@ using Abp.Linq.Extensions;
 using HC.POSCloud.Shops;
 using HC.POSCloud.Shops.Dtos;
 using HC.POSCloud.Retailers;
+using HC.POSCloud.Shops.DomainService;
 
 namespace HC.POSCloud.Shops
 {
@@ -32,17 +33,20 @@ namespace HC.POSCloud.Shops
     {
         private readonly IRepository<Shop, Guid> _entityRepository;
         private readonly IRepository<Retailer, Guid> _retailerRepository;
+        private readonly IShopManager _shopManager;
 
         /// <summary>
         /// 构造函数 
         ///</summary>
         public ShopAppService(
         IRepository<Shop, Guid> entityRepository,
-        IRepository<Retailer, Guid> retailerRepository
+        IRepository<Retailer, Guid> retailerRepository,
+        IShopManager shopManager
         )
         {
             _entityRepository = entityRepository;
             _retailerRepository = retailerRepository;
+            _shopManager = shopManager;
         }
 
 
@@ -93,7 +97,7 @@ namespace HC.POSCloud.Shops
 		public async Task<GetShopForEditOutput> GetForEdit(NullableIdDto<Guid> input)
 		{
 			var output = new GetShopForEditOutput();
-ShopEditDto editDto;
+            ShopEditDto editDto;
 
 			if (input.Id.HasValue)
 			{
@@ -196,6 +200,8 @@ ShopEditDto editDto;
             if (exists) //存在
             {
                 var shop = await _entityRepository.GetAll().Where(e => e.LicenseKey == licenseKey).FirstAsync();
+                //初始化商品数据
+                await _shopManager.InitShopProductAsync(shop.Id);
                 return shop.MapTo<ShopListDto>();
             }
             else
@@ -213,6 +219,8 @@ ShopEditDto editDto;
                     shop.Aaddress = retailer.BusinessAddress;
                     var shopId = await _entityRepository.InsertAndGetIdAsync(shop);
                     shop.Id = shopId;
+                    //初始化商品数据
+                    await _shopManager.InitShopProductAsync(shopId);
                     return shop.MapTo<ShopListDto>();
                 }
 

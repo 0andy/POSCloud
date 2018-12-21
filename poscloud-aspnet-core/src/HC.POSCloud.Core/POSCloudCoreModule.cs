@@ -1,3 +1,4 @@
+using Abp.AutoMapper;
 using Abp.Modules;
 using Abp.Reflection.Extensions;
 using Abp.Timing;
@@ -8,11 +9,14 @@ using HC.POSCloud.Authorization.Users;
 using HC.POSCloud.Configuration;
 using HC.POSCloud.Localization;
 using HC.POSCloud.MultiTenancy;
+using HC.POSCloud.Products;
+using HC.POSCloud.RetailProducts;
 using HC.POSCloud.Timing;
 
 namespace HC.POSCloud
 {
     [DependsOn(typeof(AbpZeroCoreModule))]
+    [DependsOn(typeof(AbpAutoMapperModule))]
     public class POSCloudCoreModule : AbpModule
     {
         public override void PreInitialize()
@@ -23,6 +27,13 @@ namespace HC.POSCloud
             Configuration.Modules.Zero().EntityTypes.Tenant = typeof(Tenant);
             Configuration.Modules.Zero().EntityTypes.Role = typeof(Role);
             Configuration.Modules.Zero().EntityTypes.User = typeof(User);
+
+            //add by donald Æ¥Åä
+            Configuration.Modules.AbpAutoMapper().Configurators.Add(config =>
+            {
+                config.CreateMap<Product, RetailProduct>()
+                      .ForMember(u => u.CategoryId, options => options.MapFrom(input => input.ProductTagId));
+            });
 
             POSCloudLocalizationConfigurer.Configure(Configuration.Localization);
 
