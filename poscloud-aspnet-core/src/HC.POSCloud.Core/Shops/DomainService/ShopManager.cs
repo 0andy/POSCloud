@@ -68,6 +68,7 @@ namespace HC.POSCloud.Shops.DomainService
             shopProductList.ForEach(async (item) => 
             {
                 item.ShopId = shopId;
+                item.Id = Guid.NewGuid();
                 await _retailProductrepository.InsertAsync(item);
             });
         }

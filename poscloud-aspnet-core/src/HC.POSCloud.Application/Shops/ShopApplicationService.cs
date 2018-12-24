@@ -22,6 +22,8 @@ using HC.POSCloud.Shops;
 using HC.POSCloud.Shops.Dtos;
 using HC.POSCloud.Retailers;
 using HC.POSCloud.Shops.DomainService;
+using HC.POSCloud.Dtos;
+using HC.POSCloud.Retailers.Dtos;
 
 namespace HC.POSCloud.Shops
 {
@@ -225,6 +227,20 @@ namespace HC.POSCloud.Shops
                 }
 
                 return null;
+            }
+        }
+
+        public async Task<APIResultDto> AuthenticationAsync(string licenseKey, string authorizationCode)
+        {
+            var result = await _retailerRepository.GetAll().Where(r => r.LicenseKey == licenseKey && r.IsAction == true).FirstOrDefaultAsync();
+            var resdto = result.MapTo<RetailerListDto>();
+            if (resdto != null && resdto.RetailerAuthorizationCode == authorizationCode)
+            {
+                return new APIResultDto() { Code = 0, Msg = "验证通过" };
+            }
+            else
+            {
+                return new APIResultDto() { Code = 701, Msg = "专卖证或授权码无效" };
             }
         }
 

@@ -5,9 +5,11 @@ using Abp.Application.Services.Dto;
 using Abp.Domain.Entities.Auditing;
 using System.ComponentModel.DataAnnotations;
 using HC.POSCloud.Retailers;
+using Abp.AutoMapper;
 
 namespace HC.POSCloud.Retailers.Dtos
 {
+    [AutoMapFrom(typeof(Retailer))]
     public class RetailerListDto : FullAuditedEntityDto<Guid> 
     {
 

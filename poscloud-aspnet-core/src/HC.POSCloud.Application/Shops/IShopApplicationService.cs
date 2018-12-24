@@ -20,6 +20,7 @@ using Abp.Application.Services.Dto;
 
 using HC.POSCloud.Shops.Dtos;
 using HC.POSCloud.Shops;
+using HC.POSCloud.Dtos;
 
 namespace HC.POSCloud.Shops
 {
@@ -73,11 +74,13 @@ namespace HC.POSCloud.Shops
 
         Task<ShopListDto> SynInitShopAsync(string licenseKey);
 
-		/// <summary>
+        Task<APIResultDto> AuthenticationAsync(string licenseKey, string authorizationCode);
+
+        /// <summary>
         /// 导出Shop为excel表
         /// </summary>
         /// <returns></returns>
-		//Task<FileDto> GetToExcel();
+        //Task<FileDto> GetToExcel();
 
     }
 }
