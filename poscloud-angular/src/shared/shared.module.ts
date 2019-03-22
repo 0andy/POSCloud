@@ -18,8 +18,12 @@ import { DelonFormModule } from '@delon/form';
 // region: third libs
 import { NgZorroAntdModule } from 'ng-zorro-antd';
 import { CountdownModule } from 'ngx-countdown';
+import { HostUrlPipe } from './pipe/host-url.pipe';
+import { LengthLimitPipe } from './pipe/length-limit.pipe';
+import { KeyHighlightPipe } from './pipe/key-highlight.pipe';
 
 const THIRDMODULES = [NgZorroAntdModule, CountdownModule];
+const COMPONENTS = [HostUrlPipe, LengthLimitPipe, KeyHighlightPipe];
 // endregion
 
 @NgModule({
@@ -37,7 +41,9 @@ const THIRDMODULES = [NgZorroAntdModule, CountdownModule];
     // third libs
     ...THIRDMODULES,
   ],
-  declarations: [],
+  declarations: [
+    ...COMPONENTS
+  ],
   exports: [
     CommonModule,
     FormsModule,
@@ -49,6 +55,7 @@ const THIRDMODULES = [NgZorroAntdModule, CountdownModule];
     DelonFormModule,
     // third libs
     ...THIRDMODULES,
+    ...COMPONENTS
   ],
   providers: [ModalHelper],
 })

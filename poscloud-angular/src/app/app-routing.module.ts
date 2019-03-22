@@ -6,6 +6,7 @@ import { AppComponent } from '@app/app.component';
 import { TenantsComponent } from '@app/system/tenants/tenants.component';
 import { RolesComponent } from '@app/system/roles/roles.component';
 import { UsersComponent } from '@app/system/users/users.component';
+import { LocationStrategy, HashLocationStrategy } from '@angular/common';
 const routes: Routes = [
   {
     path: 'app',
@@ -57,7 +58,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forChild(routes)],
+  imports: [RouterModule.forRoot(routes, { useHash: true })],
   exports: [RouterModule],
 })
 export class AppRoutingModule { }

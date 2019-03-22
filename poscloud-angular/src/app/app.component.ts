@@ -53,32 +53,32 @@ export class AppComponent extends AppComponentBase
       'anticon anticon-barcode',
       '/app/product/product',
     ),
-    new MenuItem(
-      '店铺中心',
-      '',
-      'anticon anticon-shop',
-      '/app/home',
-      [
-        new MenuItem(
-          '店铺管理',
-          'Pages.Tenants',
-          '',
-          '/app/tenants',
-        ),
-        new MenuItem(
-          '店铺库存',
-          'Pages.Roles',
-          '',
-          '/app/roles',
-        ),
-        new MenuItem(
-          '销售记录',
-          'Pages.Users',
-          '',
-          '/app/users',
-        ),
-      ]
-    ),
+    // new MenuItem(
+    //   '店铺中心',
+    //   '',
+    //   'anticon anticon-shop',
+    //   '/app/home',
+    //   [
+    //     new MenuItem(
+    //       '店铺管理',
+    //       'Pages.Tenants',
+    //       '',
+    //       '/app/tenants',
+    //     ),
+    //     new MenuItem(
+    //       '店铺库存',
+    //       'Pages.Roles',
+    //       '',
+    //       '/app/roles',
+    //     ),
+    //     new MenuItem(
+    //       '销售记录',
+    //       'Pages.Users',
+    //       '',
+    //       '/app/users',
+    //     ),
+    //   ]
+    // ),
     new MenuItem(
       '会员中心',
       '',
@@ -91,12 +91,12 @@ export class AppComponent extends AppComponentBase
           '',
           '/app/member/memberCenter',
         ),
-        new MenuItem(
-          '会员设置',
-          '',
-          '',
-          '/app/member/memberConfig',
-        ),
+        // new MenuItem(
+        //   '会员设置',
+        //   '',
+        //   '',
+        //   '/app/member/memberConfig',
+        // ),
       ]
     ),
 

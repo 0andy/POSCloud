@@ -11,7 +11,7 @@ import { ChangePasswordComponent } from '../../change-password/change-password.c
   template: `
   <nz-dropdown nzPlacement="bottomRight">
     <div class="item d-flex align-items-center px-sm" nz-dropdown>
-      <nz-avatar [nzSrc]="avatar" nzSize="small" class="mr-sm"></nz-avatar>
+            <nz-avatar class="avatar" nzSize="small" [nzIcon]="'user'"></nz-avatar>
     </div>
      <div nz-menu class="width-sm">
        <div nz-menu-item (click)="changePassword()"><i class="anticon anticon-user mr-sm"></i>修改密码</div>
@@ -36,4 +36,6 @@ export class HeaderUserComponent extends AppComponentBase implements OnInit {
   }
   callBack(): void {
   }
+  // <nz-avatar [nzSrc]="avatar" nzSize="small" class="mr-sm"></nz-avatar>
+
 }

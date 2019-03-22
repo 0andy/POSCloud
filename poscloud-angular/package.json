@@ -48,6 +48,7 @@
         "abp-web-resources": "^3.8.2",
         "ajv": "^6.4.0",
         "block-ui": "^2.70.1",
+        "classlist.js": "^1.1.20150312",
         "core-js": "^2.5.4",
         "editorconfig-tools": "^0.1.1",
         "famfamfam-flags": "^1.0.0",
